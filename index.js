@@ -3,17 +3,6 @@
 //curl -H "Content-Type: application/json" -X GET "localhost:1337/webhook" -d '{"object": "page", "entry": [{"messaging": [{"message": "TEST_MESSAGE"}]}]}'
 require('dotenv').config();
 
-// Process application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({extended: false}))
-
-// Process application/json
-app.use(bodyParser.json())
-
-// Index route
-app.get('/', function (req, res) {
-	res.send('Hello world, I am a chat bot')
-})
-
 // Imports dependencies and set up http server
 const
   express = require('express'),
