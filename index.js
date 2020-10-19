@@ -46,7 +46,11 @@ app.post('/webhook/', function (req, res) {
   		    continue
   	    }
 		if (text === 'Informations') {
-			sendTextMessage(sender, "Vous souhaitez obtenir des informations.")
+			sendInfo(sender, "Vous souhaitez obtenir des informations.")
+			continue
+		}
+		if (text === 'Discussion') {
+			sendChat(sender, "Vous souhaitez discuter avec le bot.")
 			continue
 		}
 		sendTextMessage(sender, "Désolé, je ne comprends pas encore tout le langage humain...")
@@ -63,6 +67,44 @@ app.post('/webhook/', function (req, res) {
 const token = process.env.ACCESS_TOKEN
 
 function sendTextMessage(sender, text) {
+    let messageData = { text:text }
+    request({
+	    url: 'https://graph.facebook.com/v8.0/me/messages',
+	    qs: {access_token:token},
+	    method: 'POST',
+		json: {
+		    recipient: {id:sender},
+			message: messageData,
+		}
+	}, function(error, response, body) {
+		if (error) {
+		    console.log('Error sending messages: ', error)
+		} else if (response.body.error) {
+		    console.log('Error: ', response.body.error)
+	    }
+    })
+}
+
+function sendInfo(sender, text) {
+    let messageData = { text:text }
+    request({
+	    url: 'https://graph.facebook.com/v8.0/me/messages',
+	    qs: {access_token:token},
+	    method: 'POST',
+		json: {
+		    recipient: {id:sender},
+			message: messageData,
+		}
+	}, function(error, response, body) {
+		if (error) {
+		    console.log('Error sending messages: ', error)
+		} else if (response.body.error) {
+		    console.log('Error: ', response.body.error)
+	    }
+    })
+}
+
+function sendChat(sender, text) {
     let messageData = { text:text }
     request({
 	    url: 'https://graph.facebook.com/v8.0/me/messages',
