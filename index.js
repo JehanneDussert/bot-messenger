@@ -45,7 +45,11 @@ app.post('/webhook/', function (req, res) {
   		    sendGenericMessage(sender)
   		    continue
   	    }
-  	    sendTextMessage(sender, "Désolé, je ne comprends pas encore tout le langage humain...")
+		if (text === 'Informations') {
+			sendTextMessage(sender, "Vous souhaitez obtenir des informations.")
+			continue
+		}
+		sendTextMessage(sender, "Désolé, je ne comprends pas encore tout le langage humain...")
       }
       if (event.postback) {
   	    let text = JSON.stringify(event.postback)
